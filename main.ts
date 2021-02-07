@@ -1,12 +1,19 @@
 input.onButtonPressed(Button.A, function () {
+    soundExpression.giggle.play()
     bird.change(LedSpriteProperty.Y, -1)
+    basic.pause(300)
+    music.stopAllSounds()
 })
 input.onButtonPressed(Button.B, function () {
+    soundExpression.giggle.play()
     bird.change(LedSpriteProperty.Y, 1)
+    basic.pause(300)
+    music.stopAllSounds()
 })
 let emptyObstacleY = 0
 let ticks = 0
 let bird: game.LedSprite = null
+let score = 0
 let index = 0
 let obstacles: game.LedSprite[] = []
 bird = game.createSprite(0, 2)
@@ -28,9 +35,13 @@ basic.forever(function () {
     }
     for (let obstacle3 of obstacles) {
         if (obstacle3.get(LedSpriteProperty.X) == bird.get(LedSpriteProperty.X) && obstacle3.get(LedSpriteProperty.Y) == bird.get(LedSpriteProperty.Y)) {
+            soundExpression.sad.play()
             game.gameOver()
+        } else {
+            score = score + 1
+            game.setScore(score)
         }
     }
     ticks += 1
-    basic.pause(1000)
+    basic.pause(800)
 })
